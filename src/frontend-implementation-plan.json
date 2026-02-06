@@ -1,0 +1,80 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Admin ownership transfer + improved claim/denied UX (frontend-only)",
+  "requirements": [
+    {
+      "id": "REQ-6",
+      "summary": "Add a non-admin “Transfer Admin to This Account” action on the Admin page with explicit override warning and typed confirmation before calling backend transfer-admin capability.",
+      "acceptanceCriteria": [
+        "On the Admin page, a logged-in non-admin user can see an option to transfer admin to the current account.",
+        "The transfer action requires an explicit confirmation step and cannot be triggered accidentally.",
+        "After a successful transfer, the Admin page refreshes role state and immediately shows the Admin panel (product CRUD)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useAdminBootstrap.ts",
+          "operation": "modify",
+          "description": "Add a dedicated React Query mutation hook for transfer-admin that calls the backend transferAdminRole capability and returns the structured TransferAdminResult. Ensure success invalidates the caller role query so the Admin page can immediately re-render as admin. Verify the selected 'authorization' component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/admin/TransferAdminDialog.tsx",
+          "operation": "create",
+          "description": "Create a reusable dialog component that presents a strong override warning and requires a typed confirmation phrase before enabling the transfer action; on confirm, invoke the transfer-admin mutation and surface structured errors/results. Compose existing shadcn/ui components (do not edit frontend/src/components/ui). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "modify",
+          "description": "When the user is logged-in but not admin, add a prominent “Transfer Admin to This Account” entry point that opens the confirmation dialog (TransferAdminDialog) and executes the backend transfer-admin flow. On successful transfer, invalidate/refresh role state so the admin CRUD panel becomes visible immediately. Verify the selected 'authorization' component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Fix Admin claim/denied UI to show correct 'Admin already exists' messaging and provide logout/switch-account and transfer-admin actions in a single consistent state.",
+      "acceptanceCriteria": [
+        "If the user tries to claim admin and the backend indicates an admin already exists, the UI shows an \"Admin already exists\" message (not \"No admin is configured yet\").",
+        "The Access Denied experience includes a logout/switch-account action and the new transfer-admin action.",
+        "The screenshots’ observed loop (claim screen showing failure + separate access denied screen) is replaced by a single, consistent state with clear next steps."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/AccessDeniedScreen.tsx",
+          "operation": "modify",
+          "description": "Extend AccessDeniedScreen to support an optional, caller-provided action area (e.g., render extra buttons/links) and optional alternate message copy so Admin can present consistent next steps without bouncing between separate screens. Compose existing UI components (do not edit frontend/src/components/ui). Verify the selected 'authorization' component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "modify",
+          "description": "Replace the current split 'claim screen' vs 'access denied screen' loop with a single non-admin state that: (1) shows correct guidance when claim indicates admin already exists, and (2) includes two explicit actions: 'Logout and switch account' (trigger II logout + clear React Query cache) and 'Transfer Admin to This Account' (opens the REQ-6 confirmation flow). Ensure the claim copy only says 'No admin is configured yet' when the backend result indicates claiming is possible, and show 'Admin already exists' when it is not. Verify the selected 'authorization' component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Export a small helper or ensure reusable logout behavior is accessible to the Admin page (logout via Internet Identity clear + React Query cache clear) so the 'Logout and switch account' action is consistent with existing behavior. Verify the selected 'authorization' component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Refactor frontend admin-claim hook to use backend claim-admin capability (no principal extraction) and show differentiated errors for 'admin already exists' vs network/unknown failures.",
+      "acceptanceCriteria": [
+        "The claim-admin flow calls a backend method specifically designed for claim-admin (no principal extraction from actor internals).",
+        "If an admin already exists, the claim-admin flow produces a deterministic, user-friendly message and does not imply there is no admin.",
+        "Other failures (e.g., network/agent errors) show a different message and preserve retry capability."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useAdminBootstrap.ts",
+          "operation": "modify",
+          "description": "Refactor useClaimAdmin to call the backend claimAdminRole capability and return the structured ClaimAdminResult rather than calling assignCallerUserRole or extracting principal from internal actor fields. Implement deterministic UI-consumable outcomes for 'alreadyExists' vs 'anonymousCaller' vs 'success', and only treat network/agent/unknown exceptions as true errors (so the UI can offer retry). Verify the selected 'authorization' component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "modify",
+          "description": "Update the Admin claim messaging to use the ClaimAdminResult from the refactored hook: show 'Admin already exists' when appropriate, and show a distinct message for network/agent/unknown failures with an obvious retry path. Remove any UX that implies 'No admin is configured yet' after a failed claim due to existing admin. Verify the selected 'authorization' component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

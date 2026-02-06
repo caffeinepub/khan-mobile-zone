@@ -1,0 +1,326 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 39,
+  "summary": "Build a professional multi-page website for a mobile shop named \"Khan Mobile Zone\" featuring explosive-style animated smartphone visuals, product listings with PKR pricing editable via an admin page, accessories section, brand sections (Oppo, Vivo, Infinix), contact details, strong calls-to-action, and real online ordering (cart + checkout) supporting both Cash on Delivery and online payment, with home delivery fulfillment.",
+  "existing_features": [
+    {
+      "id": "IF-1",
+      "title": "Multi-page responsive website with dark multi-colour theme for Khan Mobile Zone",
+      "synonyms": [
+        "Professional multi-page website",
+        "Mobile-responsive layout"
+      ],
+      "description": "Implemented a multi-page React/Tailwind site with approved navigation structure and professional styling.",
+      "reqIds": [
+        "AR-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-2",
+      "title": "Explosive-style animated smartphone hero visuals",
+      "synonyms": [
+        "Animated smartphone imagery",
+        "Explosive hero animation"
+      ],
+      "description": "Added an animated hero component with explosive-style smartphone visuals and supporting generated imagery assets.",
+      "reqIds": [
+        "AR-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-3",
+      "title": "Mobiles and Accessories catalog pages with product listings",
+      "synonyms": [
+        "Smartphones and accessories sections/pages",
+        "Product catalog pages"
+      ],
+      "description": "Implemented dedicated pages for mobiles and accessories with product listing UI and supporting catalog utilities.",
+      "reqIds": [
+        "AR-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-4",
+      "title": "Brand filtering/sections for Oppo, Vivo, and Infinix",
+      "synonyms": [
+        "Brand listings",
+        "Brand filters"
+      ],
+      "description": "Mobiles section supports brand sections/filters for Oppo, Vivo, and Infinix.",
+      "reqIds": [
+        "AR-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-5",
+      "title": "Product cards with PKR pricing and Buy/Shop actions",
+      "synonyms": [
+        "Product cards with rates in PKR",
+        "Buy Now / Shop Now buttons"
+      ],
+      "description": "Product card component displays PKR pricing and supports shopping actions integrated with cart flow.",
+      "reqIds": [
+        "AR-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-7",
+      "title": "Profile/About page and profile image setup flow",
+      "synonyms": [
+        "Profile image usage",
+        "About/Profile page"
+      ],
+      "description": "Implemented About/Profile page and a profile setup modal/flow for profile image handling.",
+      "reqIds": [
+        "AR-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-8",
+      "title": "Real online ordering: cart and checkout flow",
+      "synonyms": [
+        "Add to cart",
+        "Cart + checkout"
+      ],
+      "description": "Implemented cart page, cart hooks, line items, and end-to-end checkout experience.",
+      "reqIds": [
+        "AR-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-9",
+      "title": "Checkout payment method selection (COD + online payment)",
+      "synonyms": [
+        "Payment methods at checkout"
+      ],
+      "description": "Checkout includes payment method selector supporting Cash on Delivery and online payment option selection.",
+      "reqIds": [
+        "AR-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-10",
+      "title": "Home delivery checkout with delivery address collection",
+      "synonyms": [
+        "Delivery fulfillment",
+        "Delivery address form"
+      ],
+      "description": "Checkout collects delivery address details using a dedicated delivery address form component.",
+      "reqIds": [
+        "AR-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-11",
+      "title": "Admin page/panel for product and price updates with access control",
+      "synonyms": [
+        "Admin product editor",
+        "Editable products/prices (non-customer)"
+      ],
+      "description": "Added Admin page with product editor and backend authorization/access-control to restrict admin-only edits without code changes.",
+      "reqIds": [
+        "AR-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-12",
+      "title": "Authentication and role-based access using Internet Identity integration",
+      "synonyms": [
+        "Login",
+        "Authorization"
+      ],
+      "description": "Implemented Internet Identity login UI and hooks plus backend authorization mixins/access control; includes Access Denied screen for protected admin access.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-6",
+      "title": "Contact page with phone and email details",
+      "synonyms": [
+        "Contact section"
+      ],
+      "description": "Contact page includes phone number 03079619356 and email tengineer055@gmail.com (as requested for Contact page).",
+      "reqIds": [
+        "AR-6",
+        "AR-14"
+      ],
+      "version": 2
+    },
+    {
+      "id": "IF-13",
+      "title": "Mobile-visible Login entry point and Admin route redirects to Login when unauthenticated",
+      "synonyms": [
+        "Android login visibility fix",
+        "Admin -> Login redirect (no Access Denied dead-end)"
+      ],
+      "description": "Updated header/navigation and auth gating so mobile users can clearly find Login, and visiting Admin while unauthenticated prompts the Internet Identity login flow instead of landing on an Access Denied dead-end.",
+      "reqIds": [
+        "AR-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-14",
+      "title": "Owner/admin bootstrap (single-admin claim) for Internet Identity principal",
+      "synonyms": [
+        "Admin onboarding",
+        "First-login owner claim",
+        "Admin principal bootstrap"
+      ],
+      "description": "Implemented an onboarding/bootstrap mechanism to grant the correct Internet Identity principal admin rights (single-owner model), enabling the owner to add/edit phones and accessories after authenticating.",
+      "reqIds": [
+        "AR-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-frontend-admin-page-to-provide-an-explicit-owner-facing-transfer-admin-to-this-account-action-when-the-current-user-is-not-admin-this-flow-must-clearly-warn-that-it-will-override-the-existing-admin-and-require-an-explicit-confirmation-step-e-g-a-confirmation-dialog-with-a-required-text-entry-before-executing-the-backend-transfer-admin-api",
+      "title": "Update the frontend Admin page to provide an explicit, owner-facing \"Transfer Admin to This Account\" action when the current user is not admin. This flow must clearly warn that it will override the existing admin and require an explicit confirmation step (e.g., a confirmation dialog with a required text entry) before executing the backend transfer-admin API.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-admin-claim-denied-ui-logic-so-it-does-not-misleadingly-show-no-admin-is-configured-yet-after-a-failed-claim-attempt-when-claim-fails-because-an-admin-exists-show-clear-guidance-plus-actions-1-logout-and-switch-account-and-2-transfer-admin-to-this-account-using-the-explicit-transfer-flow-from-req-6",
+      "title": "Fix the Admin claim/denied UI logic so it does not misleadingly show \"No admin is configured yet\" after a failed claim attempt. When claim fails because an admin exists, show clear guidance plus actions: (1) \"Logout and switch account\" and (2) \"Transfer Admin to This Account\" (using the explicit transfer flow from REQ-6).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-refactor-the-existing-frontend-admin-claim-hook-so-it-no-longer-extracts-the-principal-from-internal-actor-fields-replace-it-with-a-dedicated-backend-claim-admin-method-that-succeeds-only-when-no-admin-exists-and-returns-a-structured-error-when-an-admin-already-exists-update-frontend-error-messaging-to-differentiate-between-a-admin-already-exists-and-b-network-agent-unknown-errors",
+      "title": "Refactor the existing frontend admin-claim hook so it no longer extracts the principal from internal actor fields. Replace it with a dedicated backend claim-admin method that succeeds only when no admin exists and returns a structured error when an admin already exists. Update frontend error messaging to differentiate between (a) admin already exists and (b) network/agent/unknown errors.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-12",
+      "summary": "Add clear admin workflow/help for adding more phones and accessories (create product flow, categories/brands, and basic guidance so owner can manage catalog)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Provide owner-facing guidance (and/or simple admin controls) for editing the website beyond products—e.g., updating site content like About/Profile text, contact details, branding/theme elements, and other page info from an owner-accessible interface",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Fix admin access/claim logic when an admin is already set: keep existing admin, prompt login on mobile, and ensure the existing admin can access Admin without hitting Access Denied; add clear recovery guidance if logged in with non-admin principal",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Add a backend API that allows the frontend to determine whether an admin is already configured (without changing the existing admin/owner). The API must return a boolean (or equivalent) indicating whether an admin exists, and must be callable by any user (including anonymous) without trapping.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Update the backend admin-claim operation so that it is safe and explicit: provide a dedicated method for claiming admin for the caller that succeeds only when no admin exists, and returns a typed/structured error (or a clear, distinguishable failure) when an admin already exists. This must not reset or overwrite an existing admin.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Update the frontend AdminPage to stop showing the \"No admin is configured yet\" claim UI unless the backend confirms that no admin exists. If an admin already exists and the caller is not admin, show an Access Denied state that clearly explains an admin already exists and instructs the user to sign in with the admin Internet Identity (and optionally provide a Logout button to switch accounts).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Replace the current useClaimAdmin implementation so it calls the new dedicated backend claim-admin method (and does not attempt to assign roles by extracting the principal from internal actor fields). Ensure the UI error message differentiates between (a) admin already exists and (b) other failures (network/agent errors).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Add an explicit admin reset/transfer flow to make the current Internet Identity the new sole admin (override any existing admin) so the owner can access Admin and add/edit products on Android",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Add a backend API to transfer/override admin ownership so the currently authenticated caller becomes the sole admin, even if an admin already exists. The method must remove/revoke any previous admin and set the caller as admin in a single operation, and it must return a structured success/error result (no traps for expected failures). The method must reject anonymous callers (must be logged in).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    }
+  ],
+  "architectural_notes": [
+    "Buy Now / Shop Now should be real online ordering (cart + checkout), not just contact/WhatsApp CTA.",
+    "Product prices should be kept editable (not hardcoded as fixed/non-editable values).",
+    "Approved page structure: Home, Mobiles (Oppo/Vivo/Infinix), Accessories, About/Profile, Contact.",
+    "Checkout should support both Cash on Delivery and online payment methods.",
+    "Orders should support home delivery; checkout must collect delivery address details.",
+    "Prices/products should be editable via an admin page/panel (not by customers), avoiding code changes for updates.",
+    "Admin/product editing is protected via authentication and role-based access control (Internet Identity login + backend authorization).",
+    "Provide an owner-facing guide (or in-app help) for using the Admin panel to add/update products and accessories, including brand/category selection and PKR pricing updates.",
+    "Ensure a visible/accessible Login entry point on mobile so owners can authenticate before accessing Admin (avoid showing Admin/Access Denied without offering login flow).",
+    "Contact details (phone/email) should be owner-editable from an admin/content settings interface (no code changes needed).",
+    "Change Contact page email to tengineer055@gmail.com (only on Contact page, as requested).",
+    "Admin access model decision: only the owner (single admin) can add/edit phones and accessories; no multi-admin support needed at this time.",
+    "User confirmed: set the Internet Identity currently used on their Android phone as the sole Admin/Owner (single-admin model) so they can add/edit phones and accessories.",
+    "Admin onboarding/bootstrap is supported to establish the single owner/admin Internet Identity principal (e.g., first successful owner claim or configured principal), enabling admin access without code changes.",
+    "Admin ownership decision updated: allow changing/replacing the existing admin so the current logged-in Internet Identity becomes the sole Admin/Owner (admin reset/transfer) to restore product-edit access.",
+    "User explicitly requested an admin reset/transfer: override the existing admin and make the current logged-in Internet Identity the sole Admin/Owner so they can add/edit products on Android."
+  ],
+  "known_issues": [
+    "User cannot find/was not provided the deployed website URL (deployment link not clearly communicated/accessible).",
+    "User confirms they are accessing the site on an Android phone (mobile-specific login/admin access issue context).",
+    "Admin access still failing with Access Denied on Android even after attempting to set current account as admin; likely due to existing-admin already set / principal mismatch requiring improved claim logic or recovery flow.",
+    "Attempted fix/build for admin-claim/access logic failed to complete (\"AI was unable to fulfill your request\" / build didn’t complete), leaving the admin/mobile access issue unresolved."
+  ],
+  "isFixRequest": true,
+  "generatedImages": [
+    {
+      "filename": "frontend/public/assets/generated/accessories-icons.dim_512x512.png",
+      "description": "Generated accessories icon set image used for accessories section visuals.",
+      "targetWidth": 512,
+      "targetHeight": 512
+    },
+    {
+      "filename": "frontend/public/assets/generated/hero-bg.dim_1600x900.png",
+      "description": "Generated hero background image used in the home hero section.",
+      "targetWidth": 1600,
+      "targetHeight": 900
+    },
+    {
+      "filename": "frontend/public/assets/generated/phone-hero.dim_1200x1200.png",
+      "description": "Generated smartphone hero image used for explosive hero animation/visual.",
+      "targetWidth": 1200,
+      "targetHeight": 1200
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Khan Mobile Zone",
+  "clarification_mode": "thinking",
+  "clarification_rounds": 0
+}

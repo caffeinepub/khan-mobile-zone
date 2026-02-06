@@ -1,0 +1,97 @@
+{
+  "kind": "build_request",
+  "title": "Transfer admin ownership to current Internet Identity (override existing admin) and fix Admin claim/denied UX",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-5",
+      "text": "Add a backend API to transfer/override admin ownership so the currently authenticated caller becomes the sole admin, even if an admin already exists. The method must remove/revoke any previous admin and set the caller as admin in a single operation, and it must return a structured success/error result (no traps for expected failures). The method must reject anonymous callers (must be logged in).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-20"
+        ],
+        "quotes": [
+          "Ok change the admin and make me admin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When called by a logged-in identity, the API sets that identity as the only admin (previous admin no longer has admin privileges).",
+        "The API does not trap for expected errors; it returns a typed/structured error for cases like not authenticated or other validation failures.",
+        "Anonymous (unauthenticated) callers cannot transfer admin and receive a structured error response."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Update the frontend Admin page to provide an explicit, owner-facing \"Transfer Admin to This Account\" action when the current user is not admin. This flow must clearly warn that it will override the existing admin and require an explicit confirmation step (e.g., a confirmation dialog with a required text entry) before executing the backend transfer-admin API.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-20"
+        ],
+        "quotes": [
+          "Ok change the admin and make me admin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On the Admin page, a logged-in non-admin user can see an option to transfer admin to the current account.",
+        "The transfer action requires an explicit confirmation step and cannot be triggered accidentally.",
+        "After a successful transfer, the Admin page refreshes role state and immediately shows the Admin panel (product CRUD)."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Fix the Admin claim/denied UI logic so it does not misleadingly show \"No admin is configured yet\" after a failed claim attempt. When claim fails because an admin exists, show clear guidance plus actions: (1) \"Logout and switch account\" and (2) \"Transfer Admin to This Account\" (using the explicit transfer flow from REQ-6).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6",
+          "msg-20"
+        ],
+        "quotes": [
+          "b keep existing admin and just allow access",
+          "Ok change the admin and make me admin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If the user tries to claim admin and the backend indicates an admin already exists, the UI shows an \"Admin already exists\" message (not \"No admin is configured yet\").",
+        "The Access Denied experience includes a logout/switch-account action and the new transfer-admin action.",
+        "The screenshots’ observed loop (claim screen showing failure + separate access denied screen) is replaced by a single, consistent state with clear next steps."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Refactor the existing frontend admin-claim hook so it no longer extracts the principal from internal actor fields. Replace it with a dedicated backend claim-admin method that succeeds only when no admin exists and returns a structured error when an admin already exists. Update frontend error messaging to differentiate between (a) admin already exists and (b) network/agent/unknown errors.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-20"
+        ],
+        "quotes": [
+          "Ok change the admin and make me admin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The claim-admin flow calls a backend method specifically designed for claim-admin (no principal extraction from actor internals).",
+        "If an admin already exists, the claim-admin flow produces a deterministic, user-friendly message and does not imply there is no admin.",
+        "Other failures (e.g., network/agent errors) show a different message and preserve retry capability."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain single-actor; implement all new Motoko logic in backend/main.mo.",
+    "Do not edit files under frontend/src/components/ui (compose instead).",
+    "Do not edit frontend/src/hooks/useInternetIdentity.ts / .tsx, frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
+    "If any stable-state schema changes are required to support the new admin transfer/claim result types, add backend/migration.mo only when needed (conditional migration policy).",
+    "Use English for all user-facing text."
+  ],
+  "nonGoals": [
+    "Do not add third-party authentication providers (only Internet Identity).",
+    "Do not add real-time features (WebSockets, live chat, push notifications).",
+    "Do not build new catalog features beyond enabling admin access and product management."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

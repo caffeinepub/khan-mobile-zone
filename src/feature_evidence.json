@@ -1,0 +1,67 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-frontend-admin-page-to-provide-an-explicit-owner-facing-transfer-admin-to-this-account-action-when-the-current-user-is-not-admin-this-flow-must-clearly-warn-that-it-will-override-the-existing-admin-and-require-an-explicit-confirmation-step-e-g-a-confirmation-dialog-with-a-required-text-entry-before-executing-the-backend-transfer-admin-api",
+      "featureTitle": "Update the frontend Admin page to provide an explicit, owner-facing \"Transfer Admin to This Account\" action when the current user is not admin. This flow must clearly warn that it will override the existing admin and require an explicit confirmation step (e.g., a confirmation dialog with a required text entry) before executing the backend transfer-admin API.",
+      "files": [
+        "frontend/src/components/admin/TransferAdminDialog.tsx",
+        "frontend/src/hooks/useAdminBootstrap.ts",
+        "frontend/src/pages/AdminPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-fix-the-admin-claim-denied-ui-logic-so-it-does-not-misleadingly-show-no-admin-is-configured-yet-after-a-failed-claim-attempt-when-claim-fails-because-an-admin-exists-show-clear-guidance-plus-actions-1-logout-and-switch-account-and-2-transfer-admin-to-this-account-using-the-explicit-transfer-flow-from-req-6",
+      "featureTitle": "Fix the Admin claim/denied UI logic so it does not misleadingly show \"No admin is configured yet\" after a failed claim attempt. When claim fails because an admin exists, show clear guidance plus actions: (1) \"Logout and switch account\" and (2) \"Transfer Admin to This Account\" (using the explicit transfer flow from REQ-6).",
+      "files": [
+        "frontend/src/components/auth/AccessDeniedScreen.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/pages/AdminPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-refactor-the-existing-frontend-admin-claim-hook-so-it-no-longer-extracts-the-principal-from-internal-actor-fields-replace-it-with-a-dedicated-backend-claim-admin-method-that-succeeds-only-when-no-admin-exists-and-returns-a-structured-error-when-an-admin-already-exists-update-frontend-error-messaging-to-differentiate-between-a-admin-already-exists-and-b-network-agent-unknown-errors",
+      "featureTitle": "Refactor the existing frontend admin-claim hook so it no longer extracts the principal from internal actor fields. Replace it with a dedicated backend claim-admin method that succeeds only when no admin exists and returns a structured error when an admin already exists. Update frontend error messaging to differentiate between (a) admin already exists and (b) network/agent/unknown errors.",
+      "files": [
+        "frontend/src/hooks/useAdminBootstrap.ts",
+        "frontend/src/pages/AdminPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

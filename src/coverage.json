@@ -1,0 +1,85 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-04T04:54:00.214Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 4,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-5",
+        "summary": "Add a backend API to transfer/override admin ownership so the currently authenticated caller becomes the sole admin, even if an admin already exists. The method must remove/revoke any previous admin and set the caller as admin in a single operation, and it must return a structured success/error result (no traps for expected failures). The method must reject anonymous callers (must be logged in).",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Update the frontend Admin page to provide an explicit, owner-facing \"Transfer Admin to This Account\" action when the current user is not admin. This flow must clearly warn that it will override the existing admin and require an explicit confirmation step (e.g., a confirmation dialog with a required text entry) before executing the backend transfer-admin API.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useAdminBootstrap.ts",
+          "frontend/src/components/admin/TransferAdminDialog.tsx",
+          "frontend/src/pages/AdminPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useAdminBootstrap.ts",
+          "frontend/src/components/admin/TransferAdminDialog.tsx",
+          "frontend/src/pages/AdminPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Fix the Admin claim/denied UI logic so it does not misleadingly show \"No admin is configured yet\" after a failed claim attempt. When claim fails because an admin exists, show clear guidance plus actions: (1) \"Logout and switch account\" and (2) \"Transfer Admin to This Account\" (using the explicit transfer flow from REQ-6).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/auth/AccessDeniedScreen.tsx",
+          "frontend/src/pages/AdminPage.tsx",
+          "frontend/src/components/auth/LoginButton.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/auth/AccessDeniedScreen.tsx",
+          "frontend/src/pages/AdminPage.tsx",
+          "frontend/src/components/auth/LoginButton.tsx"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Refactor the existing frontend admin-claim hook so it no longer extracts the principal from internal actor fields. Replace it with a dedicated backend claim-admin method that succeeds only when no admin exists and returns a structured error when an admin already exists. Update frontend error messaging to differentiate between (a) admin already exists and (b) network/agent/unknown errors.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useAdminBootstrap.ts",
+          "frontend/src/pages/AdminPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useAdminBootstrap.ts",
+          "frontend/src/pages/AdminPage.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/admin/TransferAdminDialog.tsx",
+    "frontend/src/components/auth/AccessDeniedScreen.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useAdminBootstrap.ts",
+    "frontend/src/pages/AdminPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
